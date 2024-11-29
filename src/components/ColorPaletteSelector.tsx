@@ -8,12 +8,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ChevronDownIcon, ChevronUpIcon, PlusIcon } from "lucide-react"
@@ -31,17 +26,6 @@ const colorPalettes: Palette[] = [
   { name: "Berry", colors: ["#6B2737", "#A3445D", "#D67BA8", "#F6BDD1"] },
 ]
 
-const paletteReducer = (state: "SELECT_PALETTE" | "ADD_COLOR", action: { type: string, payload: Palette }) => {
-  switch (action.type) {
-    case "SELECT_PALETTE":
-      return { ...action.payload, isCustom: false }
-    case "ADD_COLOR":
-      return { ...state, colors: [...state.colors, action.payload], isCustom: true }
-    default:
-      return state
-  }
-}
-
 const PaletteItem = (palette: Palette) => {
   return (
     <div className="relative flex items-center justify-between w-full rounded-md text-sm text-violet11 font-medium focus:bg-violet9 focus:text-violet1 cursor-default">
@@ -50,7 +34,7 @@ const PaletteItem = (palette: Palette) => {
         {palette.colors.map((color, index) => (
           <div
             key={index}
-            className="w-4 h-4 rounded-full border border-white"
+            className="w-4 h-4 rounded-lg border border-white"
             style={{ backgroundColor: color }}
           />
         ))}
@@ -60,28 +44,49 @@ const PaletteItem = (palette: Palette) => {
 }
 
 const ColorPaletteSelector = () => {
-  const [selectedPalette, dispatch] = useReducer(paletteReducer, colorPalettes[0])
+  const [selectedPalette, setSelectedPalette] = useState<Palette>(colorPalettes[0])
   const [newColor, setNewColor] = useState("#ffffff")
+  const [newColors, setNewColors] = useState<string[]>([])
+  const [changeColorOpen, setChangeColorOpen] = useState(false)
+  const [addColorOpen, setAddColorOpen] = useState(false)
 
   const handlePaletteChange = (paletteName: string) => {
     const palette = colorPalettes.find(p => p.name === paletteName)
     if (palette) {
-      dispatch({ type: "SELECT_PALETTE", payload: palette })
+      setSelectedPalette(palette)
     }
   }
 
   const handleAddColor = () => {
+    setAddColorOpen(false)
     if (newColor && !selectedPalette.colors.includes(newColor)) {
-      dispatch({ type: "ADD_COLOR", payload: newColor });
+      setSelectedPalette(prev => {
+        if (prev) return ({
+          ...prev,
+          colors: [...prev.colors, newColor]
+        })
+        return prev
+      })
     }
-  };
+  }
+
+  const handleChangeColor = () => {
+    setChangeColorOpen(false)
+    setSelectedPalette(prev => ({ ...prev, colors: newColors }));
+  }
 
   return (
     <div className="w-full">
       <DropdownMenu>
         <DropdownMenuTrigger className="w-full" asChild>
           <Button type="button" variant="outline" className="w-full">
-            <PaletteItem {...selectedPalette} />
+            {
+              selectedPalette ? (
+                <PaletteItem {...selectedPalette} />
+              ) : (
+                <div className="w-full text-left">Choose palette</div>
+              )
+            }
             <ChevronDownIcon size={12} />
           </Button>
         </DropdownMenuTrigger>
@@ -92,7 +97,6 @@ const ColorPaletteSelector = () => {
             {colorPalettes.map((palette) => (
               <DropdownMenuItem
                 key={palette.name}
-                // value={palette.name}
                 className="relative w-full"
                 onClick={() => handlePaletteChange(palette.name)}
               >
@@ -105,7 +109,8 @@ const ColorPaletteSelector = () => {
 
       <div className="mt-4 flex flex-wrap gap-2">
         {selectedPalette.colors.map((color: string, index: number) => (
-          <Popover key={index}>
+          // FIXME: открыть смену цвета по клику
+          <Popover key={`${color}_${index}`} open={changeColorOpen} onOpenChange={setChangeColorOpen}>
             <PopoverTrigger>
               <div
                 className="w-8 h-8 rounded-lg cursor-pointer border border-gray-200"
@@ -113,22 +118,26 @@ const ColorPaletteSelector = () => {
               />
             </PopoverTrigger>
             <PopoverContent>
-              <HexColorPicker color={color} onChange={(newColor) => {
-                const newColors = [...selectedPalette.colors];
-                newColors[index] = newColor;
-                dispatch({ type: "SELECT_PALETTE", payload: { ...selectedPalette, colors: newColors } });
+              <HexColorPicker className="!w-full" color={color} onChange={(newColor) => {
+                const _newColors = [...selectedPalette.colors];
+                _newColors[index] = newColor;
+                setNewColors(_newColors)
               }} />
+              <Button className="mt-2 w-full" onClick={() => handleChangeColor()}>
+                Apply Color
+              </Button>
             </PopoverContent>
           </Popover>
         ))}
-        <Popover>
-          <PopoverTrigger>
+
+        <Popover open={addColorOpen} onOpenChange={setAddColorOpen}>
+          <PopoverTrigger asChild>
             <Button variant="outline" size="icon" className="w-8 h-8 rounded-lg">
               <PlusIcon className="h-3 w-3" />
             </Button>
           </PopoverTrigger>
           <PopoverContent>
-            <HexColorPicker color={newColor} onChange={setNewColor} className="!w-full"/>
+            <HexColorPicker className="!w-full" color={newColor} onChange={setNewColor}/>
             <Button className="mt-2 w-full" onClick={handleAddColor}>
               Add Color
             </Button>

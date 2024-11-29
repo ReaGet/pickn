@@ -27,6 +27,7 @@ const SettingsSidebar = () => {
   const [numColors, setNumColors] = useState('')
   const [color, setColor] = useState("#000000")
   const [textScale, setTextScale] = useState(1)
+  const [colorOpen, setColorOpen] = useState(false)
 
   const handleGenerate = () => {
     console.log('Generate button clicked')
@@ -46,8 +47,9 @@ const SettingsSidebar = () => {
       </SidebarHeader>
       <SidebarContent className="space-y-7 p-4">
         <div className="space-y-4">
-          <div className="font-bold text-black">Colors</div>
+          <div className="font-bold text-black">Palette</div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="number" className="text-sm font-bold text-[#647d8c]">Number of colors</Label>
             <Input type="number" id="number" placeholder="Number of colors" className="bg-white" />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -70,13 +72,9 @@ const SettingsSidebar = () => {
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label className="text-sm font-bold text-[#647d8c]">Color</Label>
-            <Popover>
+            <Popover open={colorOpen} onOpenChange={setColorOpen}>
               <PopoverTrigger asChild>
-                <Button 
-                  id="color-picker"
-                  variant="outline" 
-                  className="w-full h-10 p-0 overflow-hidden"
-                >
+                <Button variant="outline" className="w-full h-10 p-0 overflow-hidden">
                   <div className="w-full h-full flex items-center justify-between px-3">
                     <span>Select Color</span>
                     <div 
@@ -88,6 +86,9 @@ const SettingsSidebar = () => {
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
                 <HexColorPicker color={color} onChange={setColor} />
+                <Button className="mt-2 w-full" onClick={() => setColorOpen(false)}>
+                  Apply Color
+                </Button>
               </PopoverContent>
             </Popover>
           </div>
