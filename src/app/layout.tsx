@@ -35,12 +35,7 @@ export default function RootLayout({
         {/* <SettingsSidebar /> */}
         <NavigationSidebar />
         <div className="w-full min-h-screen">
-          <header className="w-full p-2">
-            <SidebarTrigger />
-          </header>
-          <main className="w-full px-4">
-            {children}
-          </main>
+          {children}
         </div>
       </SidebarProvider>
       </body>

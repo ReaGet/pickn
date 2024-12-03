@@ -1,8 +1,9 @@
 import React from 'react'
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from './ui/sidebar'
-import { Circle, Image, Palette, Shell } from 'lucide-react'
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from './ui/sidebar'
+import { Shell } from 'lucide-react'
 import Link from 'next/link'
-import { NavUser } from './nav-user'
+import { NavUser } from './NavUser'
+import Navigation from './Navigation'
 
 const data = {
   user: {
@@ -30,6 +31,7 @@ const NavigationSidebar = () => {
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Shell className="size-4" />
                 </div>
+                <span className='text-lg'>pickn</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -37,26 +39,7 @@ const NavigationSidebar = () => {
       </SidebarHeader>
 
       <SidebarContent className="justify-center">
-        <SidebarGroup>
-          <SidebarMenu>
-          <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="App">
-                <Link href="/palette">
-                  <Image className='size-5' />
-                  <span>App</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Palettes">
-                <Link href="/palette">
-                  <Palette size={20} />
-                  <span>Palettes</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
+        <Navigation />
       </SidebarContent>
 
       <SidebarFooter>
