@@ -1,8 +1,16 @@
 import React from 'react'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from './ui/sidebar'
-import { Palette } from 'lucide-react'
-import { Button } from './ui/button'
+import { Circle, Image, Palette, Shell } from 'lucide-react'
 import Link from 'next/link'
+import { NavUser } from './nav-user'
+
+const data = {
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "https://ui.shadcn.com/avatars/shadcn.jpg",
+  }
+}
 
 const NavigationSidebar = () => {
   return (
@@ -11,16 +19,39 @@ const NavigationSidebar = () => {
       variant='sidebar'
       collapsible='icon'
     >
-      <SidebarHeader></SidebarHeader>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              size="lg"
+              asChild
+            >
+              <Link href="/">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                  <Shell className="size-4" />
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="justify-center">
         <SidebarGroup>
           <SidebarMenu>
+          <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="App">
+                <Link href="/palette">
+                  <Image className='size-5' />
+                  <span>App</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild variant="outline" tooltip={"Palette"}>
+              <SidebarMenuButton asChild tooltip="Palettes">
                 <Link href="/palette">
                   <Palette size={20} />
-                  <span>Palette</span>
+                  <span>Palettes</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -28,7 +59,9 @@ const NavigationSidebar = () => {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter></SidebarFooter>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
     </Sidebar>
   )
 }
