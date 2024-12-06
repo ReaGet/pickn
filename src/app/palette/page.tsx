@@ -2,7 +2,7 @@ import React from 'react'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
+import { Plus, PlusIcon } from 'lucide-react'
 import { getDynamicContrastColor } from '@/lib/utils'
 
 const PALETTES = [
@@ -15,19 +15,22 @@ const PaletteCard = ({ name, colors }: { name: string, colors: string[] }) => {
   return (
     <article className='p-4 border rounded-lg bg-white'>
       <h2 className='mb-4 font-bold'>{ name }</h2>
-      <div className='flex w-auto rounded-lg'>
+      <div className='flex flex-wrap gap-1 w-auto'>
         { colors.map((color, index) => {
           const contrastColor = getDynamicContrastColor(color)
           return (
             <div
               key={color}
               style={{ backgroundColor: color, color: contrastColor }}
-              className='h-32 w-20 p-3 hover:scale-105 hover:rounded-lg hover:shadow-md transition-all text-sm first:rounded-l-lg last:rounded-r-lg font-bold shadow-sm'
+              className='h-32 w-20 p-3 hover:scale-105 hover:rounded-lg hover:shadow-md transition-all text-sm rounded-lg font-bold shadow-sm'
             >
               {index}
             </div>
           )
         })}
+        <Button className='flex items-center justify-center h-32 w-20 rounded-lg bg-[#fefefe]' variant='outline'>
+          <PlusIcon size={18} />
+        </Button>
       </div>
     </article>
   )

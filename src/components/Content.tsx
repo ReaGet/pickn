@@ -1,13 +1,5 @@
 "use client"
 import React from "react"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { ImagePicker } from "@/components/ImagePicker"
 
 const Content = () => {
@@ -17,13 +9,11 @@ const Content = () => {
   }
 
   return (
-    <Card>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-center w-full min-h-[500px]">
-          <ImagePicker onImagesSelected={handleImagesSelected} />
-        </div>
-      </CardContent>
-    </Card>
+    <div className="p-2 border rounded-lg bg-white">
+      <div className="flex items-center justify-center w-full min-h-[500px]">
+        <ImagePicker onImagesSelected={handleImagesSelected} />
+      </div>
+    </div>
   )
 }
 

@@ -14,6 +14,7 @@ import {
 import { ChevronDownIcon, ChevronUpIcon, PlusIcon } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
+import { getDynamicContrastColor } from "@/lib/utils"
 
 type Palette = {
   name: string
@@ -107,7 +108,7 @@ const ColorPaletteSelector = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1 mt-4">
         {selectedPalette.colors.map((color: string, index: number) => (
           // FIXME: открыть смену цвета по клику
           <Popover key={`${color}_${index}`} open={changeColorOpen} onOpenChange={setChangeColorOpen}>
@@ -123,7 +124,7 @@ const ColorPaletteSelector = () => {
                 _newColors[index] = newColor;
                 setNewColors(_newColors)
               }} />
-              <Button className="mt-2 w-full" onClick={() => handleChangeColor()}>
+              <Button className="mt-2 w-full" style={{ color: newColor }} onClick={() => handleChangeColor()}>
                 Apply Color
               </Button>
             </PopoverContent>
@@ -138,7 +139,7 @@ const ColorPaletteSelector = () => {
           </PopoverTrigger>
           <PopoverContent>
             <HexColorPicker className="!w-full" color={newColor} onChange={setNewColor}/>
-            <Button className="mt-2 w-full" onClick={handleAddColor}>
+            <Button className="mt-2 w-full" style={{ backgroundColor: newColor, color: getDynamicContrastColor(newColor) }} onClick={handleAddColor}>
               Add Color
             </Button>
           </PopoverContent>

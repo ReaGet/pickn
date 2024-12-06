@@ -45,7 +45,7 @@ const SettingsSidebar = () => {
       <div className='flex flex-col h-full w-full border rounded-lg overflow-hidden group-data-[state=collapsed]:rounded-none group-data-[state=collapsed]:border-none'>
         <SidebarContent className="space-y-7 p-4 bg-white">
           <div className="space-y-4">
-            <div className="font-bold text-black">Palette</div>
+            <div className="font-bold text-black">Palette Settings</div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="number" className="text-sm font-bold text-[#647d8c]">Number of colors</Label>
               <Input type="number" id="number" placeholder="Number of colors" className="bg-white" />
