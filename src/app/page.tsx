@@ -1,15 +1,23 @@
 import Content from "@/components/Content";
+import SettingsSidebar from "@/components/SettingsSidebar";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 export default function Home() {
   return (<>
-    <header className="flex items-center w-full px-2 py-3">
-      <SidebarTrigger />
-      <Separator orientation="vertical" className="ml-2 mr-4 h-4" />
-      <h1 className='font-medium'>App</h1>
-    </header>
-    <main className="w-full px-4">
-      <Content />
-    </main>    
+    <div className='w-full'>
+      <header className="w-full p-1 mb-4">
+        <div className='flex items-center p-2 bg-white border rounded-lg'>
+          <div className='flex items-center'>
+            <SidebarTrigger />
+            <Separator orientation="vertical" className="ml-2 mr-4 h-4" />
+            <h1 className='font-medium'>App</h1>
+          </div>
+        </div>
+      </header>
+      <main className="flex flex-col gap-2 w-full px-1">
+        <Content />
+      </main>
+    </div>
+    <SettingsSidebar />
   </>);
 }

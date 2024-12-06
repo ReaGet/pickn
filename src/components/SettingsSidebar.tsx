@@ -38,67 +38,66 @@ const SettingsSidebar = () => {
   }
 
   return (
-    <Sidebar className="bg-white">
-      <SidebarHeader>
-        <div className="flex items-center gap-2 px-2 mt-4 mx-auto text-xl">
-          <ShellIcon size={24} />
-          pickn
-        </div>
-      </SidebarHeader>
-      <SidebarContent className="space-y-7 p-4">
-        <div className="space-y-4">
-          <div className="font-bold text-black">Palette</div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="number" className="text-sm font-bold text-[#647d8c]">Number of colors</Label>
-            <Input type="number" id="number" placeholder="Number of colors" className="bg-white" />
+    <Sidebar
+      className='p-1 group-data-[side=right]:border-0 group-data-[state=collapsed]:border-l group-data-[state=collapsed]:p-0'
+      side="right"
+    >
+      <div className='flex flex-col h-full w-full border rounded-lg overflow-hidden group-data-[state=collapsed]:rounded-none group-data-[state=collapsed]:border-none'>
+        <SidebarContent className="space-y-7 p-4 bg-white">
+          <div className="space-y-4">
+            <div className="font-bold text-black">Palette</div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="number" className="text-sm font-bold text-[#647d8c]">Number of colors</Label>
+              <Input type="number" id="number" placeholder="Number of colors" className="bg-white" />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="text-scale" className="text-sm font-bold text-[#647d8c]">Palettes</Label>
+              <ColorPaletteSelector />
+            </div>
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="text-scale" className="text-sm font-bold text-[#647d8c]">Palettes</Label>
-            <ColorPaletteSelector />
+          <div className="space-y-4">
+            <div className="font-bold text-black">Labels</div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="text-scale" className="text-sm font-bold text-[#647d8c]">Scale: {textScale}</Label>
+              <Slider
+                id="text-size"
+                min={0.1}
+                max={10}
+                step={0.1}
+                value={[textScale]}
+                onValueChange={(value) => setTextScale(value[0])}
+              />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label className="text-sm font-bold text-[#647d8c]">Color</Label>
+              <Popover open={colorOpen} onOpenChange={setColorOpen}>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="w-full h-10 p-0 overflow-hidden">
+                    <div className="w-full h-full flex items-center justify-between px-3">
+                      <span>Select Color</span>
+                      <div 
+                        className="w-6 h-6 rounded border"
+                        style={{ backgroundColor: color }}
+                      />
+                    </div>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <HexColorPicker color={color} onChange={setColor} />
+                  <Button className="mt-2 w-full" onClick={() => setColorOpen(false)}>
+                    Apply Color
+                  </Button>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
-        </div>
-        <div className="space-y-4">
-          <div className="font-bold text-black">Labels</div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="text-scale" className="text-sm font-bold text-[#647d8c]">Scale: {textScale}</Label>
-            <Slider
-              id="text-size"
-              min={0.1}
-              max={10}
-              step={0.1}
-              value={[textScale]}
-              onValueChange={(value) => setTextScale(value[0])}
-            />
-          </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label className="text-sm font-bold text-[#647d8c]">Color</Label>
-            <Popover open={colorOpen} onOpenChange={setColorOpen}>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full h-10 p-0 overflow-hidden">
-                  <div className="w-full h-full flex items-center justify-between px-3">
-                    <span>Select Color</span>
-                    <div 
-                      className="w-6 h-6 rounded border"
-                      style={{ backgroundColor: color }}
-                    />
-                  </div>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <HexColorPicker color={color} onChange={setColor} />
-                <Button className="mt-2 w-full" onClick={() => setColorOpen(false)}>
-                  Apply Color
-                </Button>
-              </PopoverContent>
-            </Popover>
-          </div>
-        </div>
-      </SidebarContent>
-      <SidebarFooter className="p-4">
-        <Button className="w-full" onClick={handleGenerate}>
-          Generate
-        </Button>
-      </SidebarFooter>
+        </SidebarContent>
+        <SidebarFooter className="p-4 bg-white">
+          <Button className="w-full" onClick={handleGenerate}>
+            Generate
+          </Button>
+        </SidebarFooter>
+      </div>
     </Sidebar>
   )
 }
