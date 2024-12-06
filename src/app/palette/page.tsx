@@ -22,13 +22,13 @@ const PaletteCard = ({ name, colors }: { name: string, colors: string[] }) => {
             <div
               key={color}
               style={{ backgroundColor: color, color: contrastColor }}
-              className='h-32 w-20 p-3 hover:scale-105 hover:rounded-lg hover:shadow-md transition-all text-sm rounded-lg font-bold shadow-sm'
+              className='h-20 w-20 p-3 hover:scale-105 hover:rounded-lg hover:shadow-md transition-all text-sm rounded-lg font-bold shadow-sm'
             >
               {index}
             </div>
           )
         })}
-        <Button className='flex items-center justify-center h-32 w-20 rounded-lg bg-[#fefefe]' variant='outline'>
+        <Button className='flex items-center justify-center h-20 w-20 rounded-lg bg-[#fefefe]' variant='outline'>
           <PlusIcon size={18} />
         </Button>
       </div>
