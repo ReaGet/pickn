@@ -8,7 +8,7 @@ export default function Home() {
       <header className="w-full p-1 mb-1">
         <div className='flex items-center p-2 bg-white border rounded-lg'>
           <div className='flex items-center'>
-            <SidebarTrigger />
+            <SidebarTrigger name="navigation" />
             <Separator orientation="vertical" className="ml-2 mr-4 h-4" />
             <h1 className='font-medium'>App</h1>
           </div>

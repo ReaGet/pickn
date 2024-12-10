@@ -11,7 +11,7 @@ const Content = () => {
   return (
     <div className="p-2 border rounded-lg bg-white">
       <div className="flex items-center justify-center w-full min-h-[500px]">
-        <ImagePicker onImagesSelected={handleImagesSelected} />
+        <ImagePicker onImagesSelected={handleImagesSelected} multiple={true } />
       </div>
     </div>
   )

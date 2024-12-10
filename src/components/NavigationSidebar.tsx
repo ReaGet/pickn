@@ -1,6 +1,6 @@
 import React from 'react'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from './ui/sidebar'
-import { Shell } from 'lucide-react'
+import { Diamond, Shell } from 'lucide-react'
 import Link from 'next/link'
 import { NavUser } from './NavUser'
 import Navigation from './Navigation'
@@ -30,7 +30,7 @@ const NavigationSidebar = () => {
               >
                 <Link href="/">
                   <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                    <Shell className="size-4" />
+                    <Diamond className="size-4" />
                   </div>
                   <span className='text-lg'>pickn</span>
                 </Link>
